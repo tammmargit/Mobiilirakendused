@@ -4,83 +4,159 @@
              x:Class="SciCalc.Views.CalculatorPage"
              Title="CalculatorPage">
 
-    <Grid
-        RowDefinitions="*,68,48,44,44,48,64,64,64,64"
-        ColumnDefinitions="*,*,*,*,*">
-        
-        <!--Color Answer Row-->
-        <BoxView 
-            VerticalOptions="Fill"
-            HorizontalOptions="Fill"
-            BackgroundColor="#262D37"
-            Grid.Row="1"
-            Grid.ColumnSpan="5"/>
-        
-        <!--Color Scientific Rows-->
-        <BoxView 
-            VerticalOptions="Fill"
-            HorizontalOptions="Fill"
-            BackgroundColor="#2C3240"
-            Grid.Row="2"
-            Grid.RowSpan="4"
-            Grid.ColumnSpan="5"/>
-        
-        <!--input area-->
-        <Frame
-            HasShadow="False"
-            Padding="6,0,4,0"
-            Margin="12"
-            BorderColor="{StaticResource PrimaryColor}"
-            BackgroundColor="#2C3240"
-            HorizontalOptions="EndAndExpand"
-            VerticalOptions="EndAndExpand"
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <!-- Stiilid teaduslikele nuppudele -->
+            <Style x:Key="ScientificOperatorButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#0B0C0D"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="CornerRadius" Value="0"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            </Style>
+
+            <!-- Stiilid operaatoritele (nagu +, -, AC) -->
+            <Style x:Key="OperatorButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#FFB74D"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="CornerRadius" Value="0"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            </Style>
+
+            <!-- Stiilid numbrinuppudele -->
+            <Style x:Key="NumberButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#20232A"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="CornerRadius" Value="0"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <!-- Kalkulaatori ruudustiku määratlus -->
+    <Grid RowDefinitions="1*, 0.5*, 0.3*, 0.3*, 0.3*, 0.3*, 1.5*"
+          ColumnDefinitions="*,*,*,*,*">
+
+        <!-- Arvutuste rida (kalkulatsioonid) -->
+        <BoxView
             Grid.Row="0"
-            Grid.Column="0"
-            Grid.ColumnSpan="5">
-            <Label
-                LineHeight="1.5"
-                VerticalTextAlignment="Center"
-                VerticalOptions="Center">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="{Binding InputText}" Style="{StaticResource InputBoxLabelStyles}" />
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
-        </Frame>
-        
-        <!--Answer Row-->
-        <Grid
-            ColumnDefinitions="Auto,*"
+            Grid.ColumnSpan="5"
+            BackgroundColor="Black"/>
+        <Label 
+            Grid.Row="0"
+            Grid.ColumnSpan="5"
+            Text="Siin näitab tehet"
+            HorizontalOptions="End"
+            VerticalOptions="Center"
+            TextColor="White"
+            FontSize="20"
+            Padding="10,0"
+            Margin="0,10"/>
+
+        <!-- Tulemuse rida -->
+        <BoxView
             Grid.Row="1"
-            Grid.Column="0"
-            Grid.ColumnSpan="5">
-            <Label
-                Text="="
-                VerticalOptions="Center"
-                VerticalTextAlignment="Center"
-                Style="{StaticResource EqualsLabelStyles}"
-                Margin="16,0"/>
+            Grid.ColumnSpan="5"
+            BackgroundColor="Black"/>
+        <Label 
+            Grid.Row="1"
+            Grid.ColumnSpan="5"
+            Text="0 siin on tulemus"
+            HorizontalOptions="End"
+            VerticalOptions="Center"
+            TextColor="Yellow"
+            FontSize="20"
+            Padding="10,0"
+            Margin="0,10"/>
 
-            <Label 
-                Text="{Binding CalculatedResult, Mode=OneWay}"
-                VerticalOptions="Center"
-                VerticalTextAlignment="Center"
-                HorizontalOptions="End"
-                Grid.Column="1"
-                Style="{StaticResource ResultLabelStyles}"
-                Margin="16,0"/>
+        <BoxView
+            Grid.Row="1"
+            Grid.ColumnSpan="0"
+            BackgroundColor="Black"/>
+        <Label 
+            Grid.Row="1"
+            Grid.ColumnSpan="0"
+            Text="="
+            HorizontalOptions="End"
+            VerticalOptions="Center"
+            TextColor="Beige"
+            FontSize="20"
+            Padding="10,0"
+            Margin="0,10"/>
+
+        <!-- Teaduslike operatsioonide read -->
+        <Button Grid.Row="2" Grid.Column="0" Text="MEAN" Style="{StaticResource ScientificOperatorButtonStyle}" />
+        <Button Grid.Row="2" Grid.Column="1" Text="MOD" Style="{StaticResource ScientificOperatorButtonStyle}" />
+        <Button Grid.Row="2" Grid.Column="2" Text="STD" Style="{StaticResource ScientificOperatorButtonStyle}" />
+        <Button Grid.Row="2" Grid.Column="3" Text="VAR" Style="{StaticResource ScientificOperatorButtonStyle}" />
+        <Button Grid.Row="2" Grid.Column="4" Text="FACT" Style="{StaticResource ScientificOperatorButtonStyle}" />
+
+        <Button Grid.Row="3" Grid.Column="0" Text="SIN" Style="{StaticResource ScientificOperatorButtonStyle}" />
+        <Button Grid.Row="3" Grid.Column="1" Text="COS" Style="{StaticResource ScientificOperatorButtonStyle}" />
+        <Button Grid.Row="3" Grid.Column="2" Text="TAN" Style="{StaticResource ScientificOperatorButtonStyle}" />
+        <Button Grid.Row="3" Grid.Column="3" Text="LOG" Style="{StaticResource ScientificOperatorButtonStyle}" />
+        <Button Grid.Row="3" Grid.Column="4" Text="EXP" Style="{StaticResource ScientificOperatorButtonStyle}" />
+
+        <Button Grid.Row="4" Grid.Column="0" Text="ASIN" Style="{StaticResource ScientificOperatorButtonStyle}" />
+        <Button Grid.Row="4" Grid.Column="1" Text="ACOS" Style="{StaticResource ScientificOperatorButtonStyle}" />
+        <Button Grid.Row="4" Grid.Column="2" Text="ATAN" Style="{StaticResource ScientificOperatorButtonStyle}" />
+        <Button Grid.Row="4" Grid.Column="3" Text="LOG10" Style="{StaticResource ScientificOperatorButtonStyle}" />
+        <Button Grid.Row="4" Grid.Column="4" Text="POW" Style="{StaticResource ScientificOperatorButtonStyle}" />
+
+        <Button Grid.Row="5" Grid.Column="0" Text="SQRT" Style="{StaticResource ScientificOperatorButtonStyle}" />
+        <Button Grid.Row="5" Grid.Column="1" Text="ABS" Style="{StaticResource ScientificOperatorButtonStyle}" />
+        <Button Grid.Row="5" Grid.Column="2" Text="," Style="{StaticResource ScientificOperatorButtonStyle}" />
+        <Button Grid.Row="5" Grid.Column="3" Text="(" Style="{StaticResource ScientificOperatorButtonStyle}" />
+        <Button Grid.Row="5" Grid.Column="4" Text=")" Style="{StaticResource ScientificOperatorButtonStyle}" />
+
+        <!-- Numberite ja põhiopeeratsioonide grid -->
+        <Grid 
+            Grid.Row="6"
+            Grid.ColumnSpan="5"
+            BackgroundColor="#20232A">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Number Buttons -->
+            <Button Grid.Row="0" Grid.Column="0" Text="7" Style="{StaticResource NumberButtonStyle}"/>
+            <Button Grid.Row="0" Grid.Column="1" Text="8" Style="{StaticResource NumberButtonStyle}"/>
+            <Button Grid.Row="0" Grid.Column="2" Text="9" Style="{StaticResource NumberButtonStyle}"/>
+            <Button Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" Text="AC" Style="{StaticResource OperatorButtonStyle}"/>
+
+            <Button Grid.Row="1" Grid.Column="0" Text="4" Style="{StaticResource NumberButtonStyle}"/>
+            <Button Grid.Row="1" Grid.Column="1" Text="5" Style="{StaticResource NumberButtonStyle}"/>
+            <Button Grid.Row="1" Grid.Column="2" Text="6" Style="{StaticResource NumberButtonStyle}"/>
+            <Button Grid.Row="1" Grid.Column="3" Text="+" Style="{StaticResource OperatorButtonStyle}"/>
+            <Button Grid.Row="1" Grid.Column="4" Text="-" Style="{StaticResource OperatorButtonStyle}"/>
+
+            <Button Grid.Row="2" Grid.Column="0" Text="1" Style="{StaticResource NumberButtonStyle}"/>
+            <Button Grid.Row="2" Grid.Column="1" Text="2" Style="{StaticResource NumberButtonStyle}"/>
+            <Button Grid.Row="2" Grid.Column="2" Text="3" Style="{StaticResource NumberButtonStyle}"/>
+            <Button Grid.Row="2" Grid.Column="3" Text="×" Style="{StaticResource OperatorButtonStyle}"/>
+            <Button Grid.Row="2" Grid.Column="4" Text="÷" Style="{StaticResource OperatorButtonStyle}"/>
+
+            <Button Grid.Row="3" Grid.Column="0" Text="0" Style="{StaticResource NumberButtonStyle}"/>
+            <Button Grid.Row="3" Grid.Column="1" Text="." Style="{StaticResource NumberButtonStyle}"/>
+            <Button Grid.Row="3" Grid.Column="2" Text="⌫" Style="{StaticResource NumberButtonStyle}"/>
+            <Button Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Text="=" Style="{StaticResource OperatorButtonStyle}"/>
         </Grid>
-        
-        <!--Scientific Operators-->
-        <!--Row-->
-        <Button 
-            Grid.Row="2"
-            Grid.Column="0"
-            ZIndex="1"
-            Margin="6,10,6,4"
-            Style="{StaticResource ScientificOperatorButtonStyle}"
-            Text="MEAN" />
-
     </Grid>
 </ContentPage>
