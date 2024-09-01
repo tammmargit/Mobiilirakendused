@@ -12,9 +12,11 @@
                 <Setter Property="BackgroundColor" Value="#0B0C0D"/>
                 <Setter Property="TextColor" Value="White"/>
                 <Setter Property="FontSize" Value="12"/>
-                <Setter Property="CornerRadius" Value="0"/>
+                <Setter Property="CornerRadius" Value="15"/>
+                <Setter Property="BorderColor" Value="LightCoral"/>
                 <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
                 <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                <Setter Property="Margin" Value="5"/>
             </Style>
 
             <!-- Stiilid operaatoritele (nagu +, -, AC) -->
@@ -41,7 +43,7 @@
     </ContentPage.Resources>
 
     <!-- Kalkulaatori ruudustiku määratlus -->
-    <Grid RowDefinitions="1*, 0.5*, 0.3*, 0.3*, 0.3*, 0.3*, 1.5*"
+    <Grid RowDefinitions="1.2*, 0.2*, 0.2*, 0.2*, 0.2*, 0.2*, 1*"
           ColumnDefinitions="*,*,*,*,*">
 
         <!-- Arvutuste rida (kalkulatsioonid) -->
@@ -64,34 +66,33 @@
         <BoxView
             Grid.Row="1"
             Grid.ColumnSpan="5"
-            BackgroundColor="Black"/>
+            BackgroundColor="DarkSlateGray"/>
         <Label 
             Grid.Row="1"
             Grid.ColumnSpan="5"
-            Text="0 siin on tulemus"
+            Text="Tulemus"
             HorizontalOptions="End"
             VerticalOptions="Center"
             TextColor="Yellow"
-            FontSize="20"
+            FontSize="15"
             Padding="10,0"
             Margin="0,10"/>
 
         <BoxView
             Grid.Row="1"
-            Grid.ColumnSpan="0"
-            BackgroundColor="Black"/>
+            BackgroundColor="DarkSlateGray"/>
         <Label 
             Grid.Row="1"
             Grid.ColumnSpan="0"
             Text="="
-            HorizontalOptions="End"
+            HorizontalOptions="Start"
             VerticalOptions="Center"
             TextColor="Beige"
-            FontSize="20"
+            FontSize="15"
             Padding="10,0"
             Margin="0,10"/>
 
-        <!-- Teaduslike operatsioonide read -->
+        <!-- SciCalc oeratsioonide read -->
         <Button Grid.Row="2" Grid.Column="0" Text="MEAN" Style="{StaticResource ScientificOperatorButtonStyle}" />
         <Button Grid.Row="2" Grid.Column="1" Text="MOD" Style="{StaticResource ScientificOperatorButtonStyle}" />
         <Button Grid.Row="2" Grid.Column="2" Text="STD" Style="{StaticResource ScientificOperatorButtonStyle}" />
@@ -116,7 +117,7 @@
         <Button Grid.Row="5" Grid.Column="3" Text="(" Style="{StaticResource ScientificOperatorButtonStyle}" />
         <Button Grid.Row="5" Grid.Column="4" Text=")" Style="{StaticResource ScientificOperatorButtonStyle}" />
 
-        <!-- Numberite ja põhiopeeratsioonide grid -->
+        <!-- Numbrite ja põhiopeeratsioonide grid -->
         <Grid 
             Grid.Row="6"
             Grid.ColumnSpan="5"
@@ -135,7 +136,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Number Buttons -->
+            <!-- Numbrid -->
             <Button Grid.Row="0" Grid.Column="0" Text="7" Style="{StaticResource NumberButtonStyle}"/>
             <Button Grid.Row="0" Grid.Column="1" Text="8" Style="{StaticResource NumberButtonStyle}"/>
             <Button Grid.Row="0" Grid.Column="2" Text="9" Style="{StaticResource NumberButtonStyle}"/>
